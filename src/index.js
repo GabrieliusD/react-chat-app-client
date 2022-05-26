@@ -2,10 +2,27 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
+import Login from "./components/login/Login";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import Register from "./components/register/Register";
+import Dashboard from "./components/dashboard/Dashboard";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login></Login>}>
+          Login
+        </Route>
+        <Route path="/register" element={<Register></Register>}>
+          Register
+        </Route>
+        <Route path="/dashboard" element={<Dashboard />}>
+          Dashboard
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
