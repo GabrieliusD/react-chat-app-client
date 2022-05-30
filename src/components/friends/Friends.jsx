@@ -4,7 +4,7 @@ import "./friend.css";
 
 export default function Friends() {
   return (
-    <div className="friendWrapper">
+    <div className="friendsWrapper">
       <Friend></Friend>
       <Friend></Friend>
       <Friend></Friend>

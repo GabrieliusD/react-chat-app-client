@@ -1,0 +1,32 @@
+.friendsWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: blue;
+    color: white;
+    width: 30%;
+    height: 500px;
+}
+
+.friendWrapper{
+    display: flex;
+    align-items: center;
+}
+
+.profileImg {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    border-radius: 50%;
+}
+
+.chatOnlineBadge{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    position: relative;
+    top: -10px;
+    left: -9px;
+}

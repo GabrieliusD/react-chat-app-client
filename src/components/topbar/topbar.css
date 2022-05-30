@@ -4,6 +4,7 @@
     align-items: center;
     background-color: rgba(106, 243, 243, 0.247);
     justify-content: space-between;
+
 }
 .topbarLeft{
 display: flex;

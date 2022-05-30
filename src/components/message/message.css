@@ -1,0 +1,17 @@
+.messageWrapper{
+    align-self: flex-start;
+}
+
+.messageWrapper.own{
+    align-self: flex-end;
+}
+
+.messageText{
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.messageWrapper.own .messageText{
+    background-color: aliceblue;
+}

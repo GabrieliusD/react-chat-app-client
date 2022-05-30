@@ -1,0 +1,7 @@
+.dashboardContainer{
+    display: flex;
+    margin: 20px auto;
+    justify-content:left;
+    flex-grow: 1;
+    background-color: red;
+}

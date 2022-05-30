@@ -1,11 +1,13 @@
 import React from "react";
-
-export default function Message() {
+import "./message.css";
+export default function Message({ own }) {
   return (
-    <div>
-      <img src="Sender Profile" alt="" />
-      <h3>This is a message</h3>
-      <span>1 hour ago</span>
+    <div className={own ? "messageWrapper own" : "messageWrapper"}>
+      <img className="senderImg" src="Sender Profile" alt="" />
+      <p className="messageText">
+        This is a message like for example you can say hello
+      </p>
+      <span className="timestamp">1 hour ago</span>
     </div>
   );
 }
