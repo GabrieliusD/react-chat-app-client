@@ -19,6 +19,9 @@ export default function Conversation() {
           <Message own={true}></Message>
           <Message></Message>
           <Message></Message>
+          <Message own={true}></Message>
+          <Message></Message>
+          <Message></Message>
         </div>
         <div className="bottomWrapper">
           <input className="inputBox" type="text" />
