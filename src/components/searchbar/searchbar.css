@@ -1,0 +1,12 @@
+.dataResult
+{
+    position: absolute;
+    background-color: white;
+    width: 150px;
+    z-index: 999;
+    border:solid;
+}
+
+.user:hover{
+    cursor:pointer;
+}

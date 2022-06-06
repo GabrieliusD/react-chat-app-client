@@ -1,10 +1,12 @@
 import React from "react";
+import SearchBar from "../searchbar/Searchbar";
+
 import "./topbar.css";
 export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="leftTopbar">
-        <input type="text" placeholder="Look for Friends" />
+        <SearchBar></SearchBar>
       </div>
       <div className="centerTopbar">
         <h1 className="test">Chat With Me</h1>
