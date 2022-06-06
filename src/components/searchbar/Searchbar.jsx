@@ -14,6 +14,23 @@ export default function SearchBar({ placeholder }) {
   const selectUser = (value) => {
     inputChange(value.username);
     setCurrentInput(value.username);
+    createConvo(value.id);
+  };
+
+  const createConvo = (id) => {
+    fetch("http://localhost:8080/convo/create", {
+      method: "POST",
+      credentials: "include",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user2: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
