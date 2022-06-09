@@ -15,18 +15,15 @@ export default function Friends() {
     }).then((data) =>
       data.json().then((value) => {
         setConvos(value);
-        console.log(value.conv);
+        console.log(value);
       })
     );
-  }, [convos]);
+  }, []);
   return (
     <div className="friendsWrapper">
-      {convos.map((value) => {
-        return <Friend>{value.username}</Friend>;
+      {convos.map((value, key) => {
+        return <Friend user={value.participants[0]}></Friend>;
       })}
-      <Friend></Friend>
-      <Friend></Friend>
-      <Friend></Friend>
     </div>
   );
 }
