@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Message from "../message/Message";
 import "./conversation.css";
-export default function Conversation() {
+export default function Conversation({ messages }) {
+  useEffect(() => {
+    console.log(messages);
+  });
   return (
     <div className="container">
       <div className="conversationWrapper">
@@ -16,12 +19,9 @@ export default function Conversation() {
           <h5>...</h5>
         </div>
         <div className="messagesWrapper">
-          <Message own={true}></Message>
-          <Message></Message>
-          <Message></Message>
-          <Message own={true}></Message>
-          <Message></Message>
-          <Message></Message>
+          {messages.map((message) => {
+            return <Message message={message}></Message>;
+          })}
         </div>
         <div className="bottomWrapper">
           <input className="inputBox" type="text" />

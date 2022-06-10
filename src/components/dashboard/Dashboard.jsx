@@ -7,6 +7,7 @@ import "./dashboard.css";
 export default function Dashboard() {
   const [currentFriend, setCurrentFriend] = useState("");
   const [convos, setConvos] = useState([]);
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
     console.log("friend effect trigger");
     fetch("http://localhost:8080/convo", {
@@ -33,6 +34,7 @@ export default function Dashboard() {
       },
     }).then((data) =>
       data.json().then((jsondata) => {
+        setMessages(jsondata);
         console.log(jsondata);
       })
     );
@@ -45,12 +47,16 @@ export default function Dashboard() {
           {convos.map((value, key) => {
             return (
               <div onClick={() => setCurrentFriend(value.id)}>
-                <Friend user={value.participants[0]}></Friend>
+                <Friend user={value?.participants[0]}></Friend>
               </div>
             );
           })}
         </div>
-        <Conversation></Conversation>
+        {currentFriend ? (
+          <Conversation messages={messages}></Conversation>
+        ) : (
+          "no conversation selected"
+        )}
       </div>
     </div>
   );
