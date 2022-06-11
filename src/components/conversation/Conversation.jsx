@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import "./conversation.css";
 export default function Conversation({ messages }) {
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     console.log(messages);
   });
@@ -20,7 +22,8 @@ export default function Conversation({ messages }) {
         </div>
         <div className="messagesWrapper">
           {messages.map((message) => {
-            return <Message message={message}></Message>;
+            const own = message.userId === user.id;
+            return <Message message={message} own={own}></Message>;
           })}
         </div>
         <div className="bottomWrapper">
