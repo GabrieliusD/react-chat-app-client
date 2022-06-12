@@ -26,7 +26,8 @@ export default function Dashboard() {
   useEffect(() => {
     console.log("current user set");
     console.log(currentFriend);
-    fetch(`http://localhost:8080/convo/${currentFriend}`, {
+    if (!currentFriend) return;
+    fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
       credentials: "include",
       mode: "cors",
       headers: {
@@ -46,14 +47,17 @@ export default function Dashboard() {
         <div className="friendsWrapper">
           {convos.map((value, key) => {
             return (
-              <div onClick={() => setCurrentFriend(value.id)}>
+              <div onClick={() => setCurrentFriend(value)}>
                 <Friend user={value?.participants[0]}></Friend>
               </div>
             );
           })}
         </div>
         {currentFriend ? (
-          <Conversation messages={messages}></Conversation>
+          <Conversation
+            currentFriend={currentFriend}
+            messages={messages}
+          ></Conversation>
         ) : (
           "no conversation selected"
         )}

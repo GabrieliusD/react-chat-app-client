@@ -1,11 +1,25 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import "./conversation.css";
-export default function Conversation({ messages }) {
+export default function Conversation({ messages, currentFriend }) {
   const { user } = useContext(AuthContext);
+  const [text, setText] = useState("");
+
+  const sendMessage = () => {
+    fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({ text, userId: user.id }),
+    });
+  };
   useEffect(() => {
     console.log(messages);
+    console.log(currentFriend);
   });
   return (
     <div className="container">
@@ -17,18 +31,27 @@ export default function Conversation({ messages }) {
             alt=""
           />
           <div className="chatOnlineBadge"></div>
-          <h2>Natasha Elliott</h2>
+          <h2>{currentFriend.participants[0].username}</h2>
           <h5>...</h5>
         </div>
         <div className="messagesWrapper">
           {messages.map((message) => {
-            const own = message.userId === user.id;
+            const own = message.senderId === user.id;
+            console.log("message user id " + message.senderId);
+            console.log("loged in user: " + user.id);
+            console.log("own" + own);
             return <Message message={message} own={own}></Message>;
           })}
         </div>
         <div className="bottomWrapper">
-          <input className="inputBox" type="text" />
-          <button className="sendButton">Send</button>
+          <input
+            className="inputBox"
+            type="text"
+            onChange={(e) => setText(e.target.value)}
+          />
+          <button className="sendButton" onClick={sendMessage}>
+            Send
+          </button>
         </div>
       </div>
     </div>
