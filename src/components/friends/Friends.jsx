@@ -19,11 +19,5 @@ export default function Friends() {
       })
     );
   }, []);
-  return (
-    <div className="friendsWrapper">
-      {convos.map((value, key) => {
-        return <Friend user={value.participants[0]}></Friend>;
-      })}
-    </div>
-  );
+  return <div className="friendsWrapper"></div>;
 }

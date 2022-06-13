@@ -3,23 +3,47 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background-color: blue;
-    color: white;
     width: 30%;
-    height: 500px;
+    height: 100%;
+    border-right: 2px grey solid;
 }
+.friend{
+    display: flex;
+    width: 100%;
 
+}
 .friendWrapper{
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     border-radius: 5px;
-    border-style: solid;
-    margin: 10px 0;
+
+}
+.friendWrapper:hover{
+    background-color: lightgrey;
+}
+.selected{
+    background-color: lightgrey;
+}
+.imgBadgeWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.textWrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+}
+.lastMessage{
+    display: inline;
+    flex-direction: row;
 }
 .friendName{
     font-size: 15px;
+    margin: 0;
 }
 
 .profileImg {

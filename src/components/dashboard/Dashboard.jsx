@@ -46,9 +46,13 @@ export default function Dashboard() {
       <div className="dashboardContainer">
         <div className="friendsWrapper">
           {convos.map((value, key) => {
+            const selected = currentFriend === value ? true : false;
             return (
-              <div onClick={() => setCurrentFriend(value)}>
-                <Friend user={value?.participants[0]}></Friend>
+              <div className="friend" onClick={() => setCurrentFriend(value)}>
+                <Friend
+                  user={value?.participants[0]}
+                  selected={selected}
+                ></Friend>
               </div>
             );
           })}
