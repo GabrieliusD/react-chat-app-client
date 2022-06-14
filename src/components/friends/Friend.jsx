@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { format } from "timeago.js";
+
 import "./friend.css";
-export default function Friend({ user, selected }) {
+export default function Friend({ receiverUser, selected, inbox }) {
+  const { user } = useContext(AuthContext);
   useEffect(() => {
-    console.log(user);
+    console.log("inbox: ", inbox);
     console.log("selected: ", selected);
   });
   return (
@@ -16,10 +21,18 @@ export default function Friend({ user, selected }) {
         <div className="chatOnlineBadge"></div>
       </div>
       <div className="textWrapper">
-        <h2 className="friendName">{user?.username}</h2>
+        <h2 className="friendName">{receiverUser?.username}</h2>
         <div className="lastMessage">
-          <p className="lastMessage">Hello my friend</p>
-          <span> * 1 m</span>
+          <p className="lastMessage">
+            {user.id === inbox.last_user_id
+              ? "You: " + inbox.last_message
+              : inbox.last_message}
+          </p>
+          <span>
+            {inbox.last_message_send
+              ? "*" + format(inbox.last_message_send)
+              : ""}
+          </span>
         </div>
       </div>
     </div>

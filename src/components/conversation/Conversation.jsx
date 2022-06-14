@@ -2,11 +2,11 @@ import React, { useEffect, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import "./conversation.css";
-export default function Conversation({ messages, currentFriend }) {
+export default function Conversation({ messages, currentFriend, socket }) {
   const { user } = useContext(AuthContext);
   const [text, setText] = useState("");
-
-  const sendMessage = () => {
+  const [newMessages, setNewMessages] = useState([]);
+  const sendMessage = async () => {
     fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
       method: "POST",
       credentials: "include",
@@ -15,12 +15,25 @@ export default function Conversation({ messages, currentFriend }) {
       },
       mode: "cors",
       body: JSON.stringify({ text, userId: user.id }),
+    }).then((response) =>
+      response.json().then((data) => {
+        setNewMessages((prev) => [...prev, data]);
+        console.log(messages);
+      })
+    );
+
+    socket.current.emit("sendMessage", {
+      senderId: user.id,
+      receiverId: currentFriend.participants[0].id,
+      text,
     });
   };
   useEffect(() => {
-    console.log(messages);
-    console.log(currentFriend);
-  });
+    setNewMessages(messages);
+  }, []);
+  useEffect(() => {
+    console.log(newMessages);
+  }, [newMessages]);
   return (
     <div className="container">
       <div className="conversationWrapper">
@@ -35,7 +48,7 @@ export default function Conversation({ messages, currentFriend }) {
           <h5>...</h5>
         </div>
         <div className="messagesWrapper">
-          {messages.map((message) => {
+          {newMessages.map((message) => {
             const own = message.senderId === user.id;
             console.log("message user id " + message.senderId);
             console.log("loged in user: " + user.id);
