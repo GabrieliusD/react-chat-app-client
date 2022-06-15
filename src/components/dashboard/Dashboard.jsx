@@ -5,26 +5,27 @@ import Conversation from "../conversation/Conversation";
 import Friend from "../friends/Friend";
 import "./dashboard.css";
 import { io } from "socket.io-client";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Dashboard() {
   const [currentFriend, setCurrentFriend] = useState("");
   const [convos, setConvos] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [arrivedMessage, SetArrivedMessage] = useState([]);
   const socket = useRef();
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     socket.current = io("ws://localhost:8080");
-    socket.current.on("getMessage", (data) => {
-      SetArrivedMessage({
-        senderId: data.senderId,
-        text: data.text,
-      });
-    });
   }, []);
+
   useEffect(() => {
-    //currentFriend?.participants.includes(arrivedMessage.senderId) &&
-    setMessages((prev) => [...prev, arrivedMessage]);
-  }, [arrivedMessage]);
+    console.log("USER ID: ", user.id);
+    socket.current.emit("addUser", user.id);
+    socket.current.on("getUsers", (users) => {
+      console.log("ONLINE USERS: ", users);
+    });
+  }, [user]);
+
   useEffect(() => {
     console.log("friend effect trigger");
     fetch("http://localhost:8080/convo", {
