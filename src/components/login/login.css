@@ -23,6 +23,9 @@ body{
 
 
 }
+.loginButton{
+    cursor: pointer;
+}
 .loginMid input{
     font-family: inherit;
     margin-bottom: 20px;

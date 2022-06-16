@@ -1,9 +1,10 @@
 .messageWrapper{
-    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
 }
 
 .messageWrapper.own{
-    align-self: flex-end;
+    align-items: flex-end;
 }
 
 .messageText{

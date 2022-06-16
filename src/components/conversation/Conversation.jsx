@@ -1,39 +1,20 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import "./conversation.css";
-export default function Conversation({ messages, currentFriend, socket }) {
+export default function Conversation({
+  messages,
+  currentFriend,
+  socket,
+  sendCallback,
+}) {
   const { user } = useContext(AuthContext);
   const [text, setText] = useState("");
-  const [newMessages, setNewMessages] = useState([]);
-  const sendMessage = async () => {
-    fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify({ text, userId: user.id }),
-    }).then((response) =>
-      response.json().then((data) => {
-        setNewMessages((prev) => [...prev, data]);
-        console.log(messages);
-      })
-    );
-
-    socket.current.emit("sendMessage", {
-      senderId: user.id,
-      receiverId: currentFriend.participants[0].id,
-      text,
-    });
-  };
+  const scrollRef = useRef();
+  const resetText = () => setText("");
   useEffect(() => {
-    setNewMessages(messages);
-  }, []);
-  useEffect(() => {
-    console.log(newMessages);
-  }, [newMessages]);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   return (
     <div className="container">
       <div className="conversationWrapper">
@@ -48,12 +29,13 @@ export default function Conversation({ messages, currentFriend, socket }) {
           <h5>...</h5>
         </div>
         <div className="messagesWrapper">
-          {newMessages.map((message) => {
+          {messages.map((message) => {
             const own = message.senderId === user.id;
-            console.log("message user id " + message.senderId);
-            console.log("loged in user: " + user.id);
-            console.log("own" + own);
-            return <Message message={message} own={own}></Message>;
+            return (
+              <div ref={scrollRef}>
+                <Message message={message} own={own}></Message>
+              </div>
+            );
           })}
         </div>
         <div className="bottomWrapper">
@@ -61,8 +43,12 @@ export default function Conversation({ messages, currentFriend, socket }) {
             className="inputBox"
             type="text"
             onChange={(e) => setText(e.target.value)}
+            value={text}
           />
-          <button className="sendButton" onClick={sendMessage}>
+          <button
+            className="sendButton"
+            onClick={() => sendCallback(text, resetText)}
+          >
             Send
           </button>
         </div>

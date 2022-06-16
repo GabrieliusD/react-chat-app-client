@@ -44,7 +44,9 @@ export default function Login() {
           placeholder="Secret Word..."
         />
         <div className="inputWrapper">
-          <button onClick={handleClick}>Login</button>
+          <button className="loginButton" onClick={handleClick}>
+            Login
+          </button>
         </div>
       </div>
       <a href="/register">No Account? No problem register here</a>
