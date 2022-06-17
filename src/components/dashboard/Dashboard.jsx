@@ -36,14 +36,25 @@ export default function Dashboard() {
         setMessages((prev) => [...prev, data]);
 
         resetText();
-        console.log(messages);
+
+        console.log("MESSAGE", data);
+        convos.forEach((value, index) => {
+          if (value.participants[0].id === currentFriend.participants[0].id) {
+            convos[index].last_message = text;
+            convos[index].last_user_id = user.id;
+            convos[index].last_message_send = new Date().toISOString();
+          }
+        });
       })
     );
   };
   useEffect(() => {
     socket.current = io("ws://localhost:8080", { withCredentials: true });
+    console.log(socket.current);
+    console.log("BINDING SOCKET");
     socket.current.on("getMessage", (data) => {
       console.log("MESSAGE ARRIVED: ", data);
+
       setArrivalMessage({
         senderId: data.senderId,
         text: data.text,
@@ -55,12 +66,29 @@ export default function Dashboard() {
     console.log("CURRENT FRIEND: ", currentFriend);
     if (!arrivalMessage) return;
     console.log(arrivalMessage);
-    console.log(currentFriend.participants[0].id);
-    arrivalMessage &&
-      currentFriend.participants.some(
-        (e) => e.id === arrivalMessage.senderId
-      ) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
+    if (currentFriend) {
+      console.log(currentFriend.participants[0].id);
+      arrivalMessage &&
+        currentFriend.participants.some(
+          (e) => e.id === arrivalMessage.senderId
+        ) &&
+        setMessages((prev) => [...prev, arrivalMessage]);
+    }
+    console.log("CONVOS", convos);
+    const newConvos = [...convos];
+    newConvos.forEach((value, index) => {
+      console.log(
+        "participant:",
+        value.participants[0].id,
+        arrivalMessage.senderId
+      );
+      if (value.participants[0].id === arrivalMessage.senderId) {
+        newConvos[index].last_message = arrivalMessage.text;
+        newConvos[index].last_user_id = arrivalMessage.senderId;
+        newConvos[index].last_message_send = new Date().toISOString();
+      }
+    });
+    setConvos(newConvos);
   }, [arrivalMessage]);
 
   useEffect(() => {
