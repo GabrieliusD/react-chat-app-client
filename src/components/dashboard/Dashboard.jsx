@@ -111,6 +111,10 @@ export default function Dashboard() {
       data.json().then((value) => {
         setConvos(value);
         console.log(value);
+
+        if (value.length > 0) {
+          setCurrentFriend(value[0]);
+        }
       })
     );
   }, []);
@@ -133,14 +137,19 @@ export default function Dashboard() {
   }, [currentFriend]);
   return (
     <div>
-      <Topbar></Topbar>
+      <Topbar key="topbar"></Topbar>
       <div className="dashboardContainer">
         <div className="friendsWrapper">
           {convos.map((value, key) => {
             const selected = currentFriend === value ? true : false;
             return (
-              <div className="friend" onClick={() => setCurrentFriend(value)}>
+              <div
+                key={value.id}
+                className="friend"
+                onClick={() => setCurrentFriend(value)}
+              >
                 <Friend
+                  key={value.id}
                   receiverUser={value?.participants[0]}
                   inbox={value}
                   selected={selected}

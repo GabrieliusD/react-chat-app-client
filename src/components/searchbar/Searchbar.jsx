@@ -5,6 +5,10 @@ export default function SearchBar({ placeholder }) {
   const [currentInput, setCurrentInput] = useState("");
   const inputChange = async (value) => {
     setCurrentInput(value);
+    if (value === "") {
+      setData([]);
+      return;
+    }
     const users = await fetch(`http://localhost:8080/users/${value}`);
     const jsondata = await users.json();
     setData(jsondata);
@@ -42,6 +46,7 @@ export default function SearchBar({ placeholder }) {
           onChange={(e) => inputChange(e.target.value)}
         />
       </div>
+      {data.length > 0 ? "" : ""}
       <div className="dataResult">
         {data.map((value, key) => {
           return (
