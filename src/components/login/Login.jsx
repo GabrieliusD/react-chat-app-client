@@ -40,7 +40,7 @@ export default function Login() {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-          type="text"
+          type="password"
           placeholder="Secret Word..."
         />
         <div className="inputWrapper">
