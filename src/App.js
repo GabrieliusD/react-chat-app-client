@@ -4,6 +4,7 @@ import Register from "./components/register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
+import Menu from "./components/menu/Menu";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -25,6 +26,9 @@ function App() {
           element={!user ? <Navigate to="/" /> : <Dashboard />}
         >
           Dashboard
+        </Route>
+        <Route path="/upload" element={<Menu />}>
+          Upload
         </Route>
       </Routes>
     </BrowserRouter>
