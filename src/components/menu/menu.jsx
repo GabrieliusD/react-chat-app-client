@@ -4,6 +4,7 @@ import "./menu.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
+import { default as Modal } from "../modal/Modal";
 export default function Menu() {
   const { dispatch } = useContext(AuthContext);
   const [file, setFile] = useState(null);
@@ -26,13 +27,8 @@ export default function Menu() {
   };
   return (
     <div>
-      <Navbar>
-        <NavItem icon=":)"></NavItem>
-        <NavItem icon=":)"></NavItem>
-        <NavItem icon=":)">
-          <DropdownMenu></DropdownMenu>
-        </NavItem>
-      </Navbar>
+      <DropdownMenu></DropdownMenu>
+
       <h2>Profile</h2>
       <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>
       <button onClick={uploadFile}>Upload</button>
@@ -40,7 +36,7 @@ export default function Menu() {
   );
 }
 
-function Navbar(props) {
+export function Navbar(props) {
   return (
     <nav className="navbar">
       <ul className="navbar-nav">{props.children}</ul>
@@ -48,34 +44,23 @@ function Navbar(props) {
   );
 }
 
-function NavItem(props) {
+export function NavItem(props) {
   const [open, setOpen] = useState(false);
   return (
     <li className="nav-item">
-      <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
-        {props.icon}
-      </a>
+      <img
+        src={props.icon}
+        className="icon-button"
+        onClick={() => setOpen(!open)}
+      ></img>
       {open && props.children}
     </li>
   );
 }
 
-function DropdownMenu() {
+export function DropdownMenu(props) {
   const [activeMenu, setActiveMenu] = useState("main");
 
-  function DropdownItem(props) {
-    return (
-      <a
-        href="#"
-        className="menu-item"
-        onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
-      >
-        <span className="icon-button">{props.leftIcon}</span>
-        {props.children}
-        <span className="icon-button">{props.rightIcon}</span>
-      </a>
-    );
-  }
   return (
     <div className="dropdown">
       <CSSTransition
@@ -84,10 +69,7 @@ function DropdownMenu() {
         timeout={500}
         classNames="menu-primary"
       >
-        <div className="menu">
-          <DropdownItem leftIcon="Hi">My Profile</DropdownItem>
-          <DropdownItem goToMenu="settings">Settings</DropdownItem>
-        </div>
+        <div className="menu">{props.children}</div>
       </CSSTransition>
       <CSSTransition
         in={activeMenu === "settings"}
@@ -99,9 +81,35 @@ function DropdownMenu() {
           <DropdownItem leftIcon="Hi" goToMenu="main">
             This is Different
           </DropdownItem>
-          <DropdownItem>Go BAck</DropdownItem>
+          <DropdownItem>Go Back</DropdownItem>
         </div>
       </CSSTransition>
     </div>
   );
+}
+
+export function DropdownItem(props) {
+  return (
+    <a
+      href="#"
+      className="menu-item"
+      onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}
+    >
+      <span className="icon-button">{props.leftIcon}</span>
+      {props.children}
+      {props.rightIcon ? (
+        <span className="icon-button">{props.rightIcon}</span>
+      ) : (
+        ""
+      )}
+    </a>
+  );
+}
+
+export function DropdownButton(props) {
+  const buttonClicked = () => {
+    console.log("Drop down button clicked");
+    props.setShowModal((prev) => !prev);
+  };
+  return <a href="#" className="menu-item" onClick={buttonClicked}></a>;
 }

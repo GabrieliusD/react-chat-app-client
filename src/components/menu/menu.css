@@ -60,7 +60,7 @@ a {
 
 .dropdown {
     position: absolute;
-    top: 58px;
+    top: 72px;
     width: 300px;
     transform: translateX(-45%);
     background-color: var(--bg);
@@ -74,6 +74,7 @@ a {
     height: 50px;
     display: flex;
     align-self: center;
+    align-items: center;
     border-radius: var(--border-radius);
     transition: background var(--speed);
     padding: 0.5rem;

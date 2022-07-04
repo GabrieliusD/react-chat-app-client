@@ -137,6 +137,7 @@ export default function Dashboard() {
   }, [currentFriend]);
   return (
     <div>
+      <div id="modal"></div>
       <Topbar key="topbar"></Topbar>
       <div className="dashboardContainer">
         <div className="friendsWrapper">
