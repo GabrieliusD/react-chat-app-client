@@ -18,6 +18,14 @@ const AuthReducer = (state, action) => {
         isFetching: false,
         error: true,
       };
+    case "UPLOAD_IMAGE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          profileImage: action.payload,
+        },
+      };
     default:
       return state;
   }
