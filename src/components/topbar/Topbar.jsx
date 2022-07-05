@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import SearchBar from "../searchbar/Searchbar";
 import { AuthContext } from "../../context/AuthContext";
 import {
+  default as Menu,
   NavItem,
   DropdownMenu,
   DropdownItem,
@@ -34,7 +35,9 @@ export default function Topbar() {
           </DropdownMenu>
         </NavItem>
         {showModal ? (
-          <Modal showModal={showModal} setShowModal={setShowModal}></Modal>
+          <Modal showModal={showModal} setShowModal={setShowModal}>
+            <Menu></Menu>
+          </Modal>
         ) : null}
       </div>
     </div>

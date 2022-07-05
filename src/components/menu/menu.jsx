@@ -8,7 +8,7 @@ import { default as Modal } from "../modal/Modal";
 export default function Menu() {
   const { dispatch } = useContext(AuthContext);
   const [file, setFile] = useState(null);
-
+  const [showModal, setShowModal] = useState(false);
   const uploadFile = async () => {
     let data = new FormData();
     data.append("file", file);
@@ -26,12 +26,37 @@ export default function Menu() {
     );
   };
   return (
-    <div>
-      <DropdownMenu></DropdownMenu>
-
-      <h2>Profile</h2>
-      <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>
-      <button onClick={uploadFile}>Upload</button>
+    <div className="setting-container">
+      <div className="setting-wrapper">
+        <h2>Upload profile image</h2>
+        <input type="file" onChange={(e) => setFile(e.target.files[0])}></input>
+        <button onClick={() => setShowModal((prev) => !prev)}>Upload</button>
+        {showModal ? (
+          <Modal zIndex={20} showModal={showModal} setShowModal={setShowModal}>
+            hello
+          </Modal>
+        ) : null}
+      </div>
+      <div className="setting-wrapper">
+        <h2>Name:</h2>
+        <h2>Gabrielius Dobrovolskis</h2>
+        <a>Edit</a>
+      </div>
+      <div className="setting-wrapper">
+        <h2>Bio:</h2>
+        <p>A person that likes to have fun</p>
+        <a>Edit</a>
+      </div>
+      <div className="setting-wrapper">
+        <h2>Hobbies:</h2>
+        <h2>Gaming Football</h2>
+        <a>Edit</a>
+      </div>
+      <div className="setting-wrapper">
+        <h2>Work:</h2>
+        <h2>Programmer</h2>
+        <a>Edit</a>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import "./modal.css";
 export default function Modal(props) {
+  const modalRef = useRef();
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      props.setShowModal(false);
+    }
+  };
+
   return ReactDOM.createPortal(
     <div>
       {props.showModal ? (
-        <div className="modalContainer">
-          <div className="modalWrapper">
-            <img src="" alt="" className="modalImg" />
+        <div
+          className="modalContainer"
+          ref={modalRef}
+          onClick={closeModal}
+          style={{ zIndex: props.zIndex }}
+        >
+          <div className="modalWrapper" style={{ zIndex: props.zIndex }}>
             <div className="modalContent">
-              <h1>Are you ready</h1>
-              <p>Exclusive launch</p>
-              <button>Join now</button>
-              <button className="closeModalButton"></button>
+              <h1 className="title">Modal Title</h1>
+              {props.children}
+              <button
+                className="closeModalButton"
+                onClick={() => props.setShowModal((prev) => !prev)}
+              >
+                X
+              </button>
             </div>
           </div>
         </div>
