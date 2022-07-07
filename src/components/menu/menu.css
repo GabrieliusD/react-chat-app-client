@@ -131,11 +131,13 @@ a {
 }
 
 .setting-wrapper{
-    flex-direction:row;
+    display: flex;
     background-color: rgb(78, 78, 78, 0.6);
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
+    justify-content:space-between;
+    align-items: center;
 }
 
 h1{
@@ -143,5 +145,15 @@ h1{
 }
 h2{
     margin: 10px;
-    display: inline;
+}
+
+.settings-profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.bio-text{
+    width: 80%;
+    min-height: 200px;
 }
