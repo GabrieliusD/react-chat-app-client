@@ -21,7 +21,23 @@ export default function SearchBar({ placeholder }) {
   const selectUser = (value) => {
     inputChange(value.username);
     setCurrentInput(value.username);
-    createConvo(value.id);
+    setShowUserModal((prev) => !prev);
+    console.log(value);
+    fetch(`http://localhost:8080/users/profile/${value.id}`, {
+      method: "GET",
+      credentials: "include",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      response.status === 200
+        ? response.json().then((data) => {
+            console.log(data);
+          })
+        : response.json().then((data) => console.log(data));
+    });
+    //createConvo(value.id);
   };
 
   const createConvo = (id) => {
@@ -49,21 +65,24 @@ export default function SearchBar({ placeholder }) {
           onChange={(e) => inputChange(e.target.value)}
         />
       </div>
-      {data.length > 0 ? "" : ""}
-      <div className="dataResult">
-        {data.map((value, key) => {
-          return (
-            <User
-              userFound={value}
-              clickHandle={() => setShowUserModal((prev) => !prev)}
-            ></User>
-          );
-        })}
-      </div>
+      {data.length > 0 ? (
+        <div className="dataResult">
+          {data.map((value, key) => {
+            return (
+              <User
+                userFound={value}
+                clickHandle={() => selectUser(value)}
+              ></User>
+            );
+          })}
+        </div>
+      ) : null}
       {showUserModal ? (
         <Modal showModal={showUserModal} setShowModal={setShowUserModal}>
           <div className="user-profile-modal">
+            <img className="user-img"></img>
             <span>Gabrielius Dobrovolskis</span>
+            <span>About User</span>
             <p className="bio">i am a funny boy</p>
             <span>hobbies</span>
             <span>Work</span>

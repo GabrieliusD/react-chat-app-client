@@ -5,9 +5,11 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { default as Modal } from "../modal/Modal";
+import { useEffect } from "react";
 export default function Menu() {
   const { dispatch } = useContext(AuthContext);
   const [file, setFile] = useState(null);
+  const [userData, setUserData] = useState({});
 
   //state for opening and closing models
   const [showImageModal, setShowImageModal] = useState(false);
@@ -23,6 +25,10 @@ export default function Menu() {
   //state for bio
   const [bio, setBio] = useState("");
 
+  //state for hobby
+
+  const [hobby, setHobby] = useState("");
+
   const { user } = useContext(AuthContext);
   const [image, setImage] = useState(null);
   const onImageChanged = (e) => {
@@ -31,6 +37,29 @@ export default function Menu() {
     const fileURL = URL.createObjectURL(e.target.files[0]);
     setImage(fileURL);
   };
+
+  const getUserData = () => {
+    fetch(`http://localhost:8080/users/profile/${user.id}`, {
+      method: "GET",
+      credentials: "include",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      response.status === 200
+        ? response.json().then((json) => {
+            setUserData(json.data.userProfile);
+            console.log(json.data.userProfile);
+          })
+        : response.json().then((data) => console.log(data));
+    });
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   const uploadFile = async () => {
     let data = new FormData();
     data.append("file", file);
@@ -64,6 +93,7 @@ export default function Menu() {
 
       data.json().then((jsondata) => {
         console.log(jsondata);
+        getUserData();
         //dispatch({ type: "UPLOAD_IMAGE", payload: jsondata.image });
       });
     });
@@ -71,7 +101,7 @@ export default function Menu() {
 
   const updateBio = async () => {
     if (bio.length === 0) return;
-    const data = { firstName, lastName };
+    const data = { bio };
     fetch(`http://localhost:8080/users/profile/bio`, {
       credentials: "include",
       headers: {
@@ -86,6 +116,25 @@ export default function Menu() {
       data.json().then((jsondata) => {
         console.log(jsondata);
         //dispatch({ type: "UPLOAD_IMAGE", payload: jsondata.image });
+        getUserData();
+      });
+    });
+  };
+
+  const addHobby = async () => {
+    const data = { hobby };
+    fetch(`http://localhost:8080/users/profile/hobbies`, {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((response) => {
+      response.json().then((json) => {
+        console.log(json);
+        getUserData();
       });
     });
   };
@@ -114,7 +163,7 @@ export default function Menu() {
       </div>
       <div className="setting-wrapper">
         <h2>Name:</h2>
-        <h2>Gabrielius Dobrovolskis</h2>
+        <h2>{userData.firstName + " " + userData.lastName}</h2>
         {showNameModal ? (
           <Modal
             zIndex={20}
@@ -137,7 +186,7 @@ export default function Menu() {
       </div>
       <div className="setting-wrapper">
         <h2>Bio:</h2>
-        <p>A person that likes to have fun</p>
+        <p>{userData.bio}</p>
         {showBioModal ? (
           <Modal
             zIndex={20}
@@ -156,7 +205,11 @@ export default function Menu() {
       </div>
       <div className="setting-wrapper">
         <h2>Hobbies:</h2>
-        <h2>Gaming Football</h2>
+        {userData &&
+          userData.hobbies &&
+          userData.hobbies.map((hobby) => {
+            return <span>{hobby}</span>;
+          })}
         {showHobbiesModal ? (
           <Modal
             zIndex={20}
@@ -164,9 +217,18 @@ export default function Menu() {
             setShowModal={setShowHobbiesModal}
           >
             <label>Hobbies</label>
-            <div>list of hobbies</div>
-            <input type="text"></input>
-            <button>Submit</button>
+            {userData &&
+              userData.hobbies &&
+              userData.hobbies.map((hobby) => {
+                return <span>{hobby}</span>;
+              })}
+            <input
+              onChange={(e) => {
+                setHobby(e.target.value);
+              }}
+              type="text"
+            ></input>
+            <button onClick={addHobby}>Submit</button>
           </Modal>
         ) : null}
         <button onClick={() => setShowHobbiesModal((prev) => !prev)}>

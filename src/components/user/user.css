@@ -5,8 +5,7 @@
     align-items:center;
     justify-content: space-evenly;
     border-radius: 10px;
-    border-color: black;
-    border-style: solid;
+    background-color: white;
 }
 .user-container:hover{
     background-color: lightgrey;
