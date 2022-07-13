@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./searchbar.css";
+import User from "../user/User";
+import Modal from "../modal/Modal";
 export default function SearchBar({ placeholder }) {
   const [data, setData] = useState([]);
   const [currentInput, setCurrentInput] = useState("");
+  const [showUserModal, setShowUserModal] = useState(false);
   const inputChange = async (value) => {
     setCurrentInput(value);
     if (value === "") {
@@ -50,12 +53,24 @@ export default function SearchBar({ placeholder }) {
       <div className="dataResult">
         {data.map((value, key) => {
           return (
-            <div onClick={(e) => selectUser(value)} className="user">
-              {value.username}
-            </div>
+            <User
+              userFound={value}
+              clickHandle={() => setShowUserModal((prev) => !prev)}
+            ></User>
           );
         })}
       </div>
+      {showUserModal ? (
+        <Modal showModal={showUserModal} setShowModal={setShowUserModal}>
+          <div className="user-profile-modal">
+            <span>Gabrielius Dobrovolskis</span>
+            <p className="bio">i am a funny boy</p>
+            <span>hobbies</span>
+            <span>Work</span>
+            <button>Start Conversation</button>
+          </div>
+        </Modal>
+      ) : null}
     </div>
   );
 }

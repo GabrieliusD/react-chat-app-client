@@ -5,6 +5,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import Menu from "./components/menu/Menu";
+import User from "./components/user/User";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -27,7 +28,7 @@ function App() {
         >
           Dashboard
         </Route>
-        <Route path="/upload" element={<Menu />}>
+        <Route path="/upload" element={<User />}>
           Upload
         </Route>
       </Routes>

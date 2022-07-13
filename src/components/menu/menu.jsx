@@ -163,8 +163,9 @@ export default function Menu() {
             showModal={showHobbiesModal}
             setShowModal={setShowHobbiesModal}
           >
-            <lable>Edit your bio. Write something about yourself</lable>
-            <textarea className="bio-text"></textarea>
+            <label>Hobbies</label>
+            <div>list of hobbies</div>
+            <input type="text"></input>
             <button>Submit</button>
           </Modal>
         ) : null}
@@ -181,8 +182,8 @@ export default function Menu() {
             showModal={showWorkModal}
             setShowModal={setShowWorkModal}
           >
-            <lable>Edit your bio. Write something about yourself</lable>
-            <textarea className="bio-text"></textarea>
+            <lable>Edit your work info</lable>
+            <input type="text"></input>
             <button>Submit</button>
           </Modal>
         ) : null}

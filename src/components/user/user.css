@@ -1,0 +1,22 @@
+.user-container{
+    display: flex;
+    padding: 20px;
+    width: 300px;
+    align-items:center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    border-color: black;
+    border-style: solid;
+}
+.user-container:hover{
+    background-color: lightgrey;
+}
+
+.user-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.user-name{
+    padding-left: 10px;
+}
