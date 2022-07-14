@@ -4,6 +4,7 @@ import User from "../user/User";
 import Modal from "../modal/Modal";
 export default function SearchBar({ placeholder }) {
   const [data, setData] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
   const [currentInput, setCurrentInput] = useState("");
   const [showUserModal, setShowUserModal] = useState(false);
   const inputChange = async (value) => {
@@ -32,8 +33,9 @@ export default function SearchBar({ placeholder }) {
       },
     }).then((response) => {
       response.status === 200
-        ? response.json().then((data) => {
-            console.log(data);
+        ? response.json().then((json) => {
+            setSelectedUser(json.data.userProfile);
+            console.log(json.data.userProfile);
           })
         : response.json().then((data) => console.log(data));
     });
@@ -41,6 +43,7 @@ export default function SearchBar({ placeholder }) {
   };
 
   const createConvo = (id) => {
+    console.log(id);
     fetch("http://localhost:8080/convo/create", {
       method: "POST",
       credentials: "include",
@@ -81,12 +84,22 @@ export default function SearchBar({ placeholder }) {
         <Modal showModal={showUserModal} setShowModal={setShowUserModal}>
           <div className="user-profile-modal">
             <img className="user-img"></img>
-            <span>Gabrielius Dobrovolskis</span>
+            <span>{selectedUser.firstname + " " + selectedUser.lastname}</span>
             <span>About User</span>
-            <p className="bio">i am a funny boy</p>
+
+            <p className="bio">
+              {selectedUser.bio ? selectedUser.bio : "No bio available"}
+            </p>
             <span>hobbies</span>
+            {selectedUser &&
+              selectedUser.hobbies &&
+              selectedUser.hobbies.map((hobby) => {
+                return <span>{hobby}</span>;
+              })}
             <span>Work</span>
-            <button>Start Conversation</button>
+            <button onClick={() => createConvo(selectedUser.id)}>
+              Start Conversation
+            </button>
           </div>
         </Modal>
       ) : null}
