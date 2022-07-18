@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./searchbar.css";
 import User from "../user/User";
 import Modal from "../modal/Modal";
+import { useRef } from "react";
 export default function SearchBar({ placeholder }) {
+  const [focused, setFocused] = useState(false);
   const [data, setData] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [currentInput, setCurrentInput] = useState("");
   const [showUserModal, setShowUserModal] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      console.log(e);
+      if (ref.current && !ref.current.contains(e.target)) {
+        setFocused(false);
+      }
+    };
+    document.body.addEventListener("click", closeDropdown);
+
+    return () => document.body.removeEventListener("click", closeDropdown);
+  });
+
   const inputChange = async (value) => {
     setCurrentInput(value);
     if (value === "") {
@@ -60,7 +76,7 @@ export default function SearchBar({ placeholder }) {
   };
 
   return (
-    <div className="search">
+    <div className="search" ref={ref} onFocus={(e) => setFocused(true)}>
       <div className="searchInput">
         <input
           type="text"
@@ -68,13 +84,16 @@ export default function SearchBar({ placeholder }) {
           onChange={(e) => inputChange(e.target.value)}
         />
       </div>
-      {data.length > 0 ? (
+      {data.length > 0 && focused ? (
         <div className="dataResult">
           {data.map((value, key) => {
             return (
               <User
                 userFound={value}
-                clickHandle={() => selectUser(value)}
+                clickHandle={() => {
+                  selectUser(value);
+                  setFocused(false);
+                }}
               ></User>
             );
           })}

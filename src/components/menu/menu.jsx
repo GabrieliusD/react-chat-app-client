@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import "./menu.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -264,9 +264,21 @@ export function Navbar(props) {
 }
 
 export function NavItem(props) {
+  const ref = useRef(null);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const closeDropdown = (e) => {
+      console.log(e);
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener("click", closeDropdown);
+
+    return () => document.body.removeEventListener("click", closeDropdown);
+  });
   return (
-    <li className="nav-item">
+    <li className="nav-item" ref={ref}>
       <img
         src={props.icon}
         className="icon-button"
@@ -290,6 +302,7 @@ export function DropdownMenu(props) {
       >
         <div className="menu">{props.children}</div>
       </CSSTransition>
+
       <CSSTransition
         in={activeMenu === "settings"}
         unmountOnExit
