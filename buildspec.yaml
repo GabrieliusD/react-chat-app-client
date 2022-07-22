@@ -2,9 +2,9 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 16
     commands:
-      - n 16
+      - echo work already
   pre_build:
     commands:
       - echo install npm
