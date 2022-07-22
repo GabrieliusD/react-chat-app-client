@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
+import Modal from "../modal/Modal";
 import "./conversation.css";
 export default function Conversation({
   messages,
@@ -10,11 +11,38 @@ export default function Conversation({
 }) {
   const { user } = useContext(AuthContext);
   const [text, setText] = useState("");
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
+
   const scrollRef = useRef();
   const resetText = () => setText("");
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const selectUser = () => {
+    setShowUserModal((prev) => !prev);
+    console.log(currentFriend);
+    fetch(
+      `http://localhost:8080/users/profile/${currentFriend.participants[0].id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((response) => {
+      response.status === 200
+        ? response.json().then((json) => {
+            setSelectedUser(json.data.userProfile);
+            console.log(json.data.userProfile);
+          })
+        : response.json().then((data) => console.log(data));
+    });
+  };
+
   return (
     <div className="container">
       <div className="conversationWrapper">
@@ -26,7 +54,28 @@ export default function Conversation({
           />
           <div className="chatOnlineBadge"></div>
           <h2>{currentFriend.participants[0].username}</h2>
-          <h5>...</h5>
+          <h5 onClick={selectUser}>INFO</h5>
+          {showUserModal ? (
+            <Modal showModal={showUserModal} setShowModal={setShowUserModal}>
+              <div className="user-profile-modal">
+                <img className="user-img"></img>
+                <span>
+                  {selectedUser.firstname + " " + selectedUser.lastname}
+                </span>
+                <span>About User</span>
+
+                <p className="bio">
+                  {selectedUser.bio ? selectedUser.bio : "No bio available"}
+                </p>
+                <span>hobbies</span>
+                {selectedUser &&
+                  selectedUser.hobbies &&
+                  selectedUser.hobbies.map((hobby) => {
+                    return <span>{hobby}</span>;
+                  })}
+              </div>
+            </Modal>
+          ) : null}
         </div>
         <div className="messagesWrapper">
           {messages.map((message) => {
