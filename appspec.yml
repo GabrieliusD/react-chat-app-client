@@ -6,7 +6,7 @@ os: linux
 files:
   - source: /build
     destination: /var/www/chatapp/html
-
+    overwrite: true
 permissions:
   - object: /
     pattern: "**"
