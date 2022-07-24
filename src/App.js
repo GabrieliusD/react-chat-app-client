@@ -6,10 +6,13 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import Menu from "./components/menu/Menu";
 import User from "./components/user/User";
+import { createBrowserHistory } from "history";
+const history = createBrowserHistory({ basename: "/chatapp" });
+
 function App() {
   const { user } = useContext(AuthContext);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={"/chatapp"} history={history}>
       <Routes>
         <Route
           path="/"
