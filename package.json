@@ -1,5 +1,6 @@
 {
   "name": "chatwithme",
+  "homepage": "http://gabkis.com/chatapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
