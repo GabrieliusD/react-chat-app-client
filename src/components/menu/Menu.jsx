@@ -39,7 +39,7 @@ export default function Menu() {
   };
 
   const getUserData = () => {
-    fetch(`http://localhost:8080/users/profile/${user.id}`, {
+    fetch(`https://gabkis.com/api/users/profile/${user.id}`, {
       method: "GET",
       credentials: "include",
       mode: "cors",
@@ -64,7 +64,7 @@ export default function Menu() {
     let data = new FormData();
     data.append("file", file);
 
-    fetch(`http://localhost:8080/upload/`, {
+    fetch(`https://gabkis.com/api/upload/`, {
       credentials: "include",
       mode: "cors",
       method: "POST",
@@ -80,7 +80,7 @@ export default function Menu() {
   const changeUsername = async () => {
     if (lastName.length === 0 && firstName === 0) return;
     const data = { firstName, lastName };
-    fetch(`http://localhost:8080/users/profile/name`, {
+    fetch(`https://gabkis.com/api/users/profile/name`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function Menu() {
   const updateBio = async () => {
     if (bio.length === 0) return;
     const data = { bio };
-    fetch(`http://localhost:8080/users/profile/bio`, {
+    fetch(`https://gabkis.com/api/users/profile/bio`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default function Menu() {
 
   const addHobby = async () => {
     const data = { hobby };
-    fetch(`http://localhost:8080/users/profile/hobbies`, {
+    fetch(`https://gabkis.com/api/users/profile/hobbies`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

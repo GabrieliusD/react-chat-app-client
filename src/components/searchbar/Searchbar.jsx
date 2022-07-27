@@ -29,7 +29,7 @@ export default function SearchBar({ placeholder }) {
       setData([]);
       return;
     }
-    const users = await fetch(`http://localhost:8080/users/${value}`);
+    const users = await fetch(`https://gabkis.com/api/users/${value}`);
     const jsondata = await users.json();
     setData(jsondata);
     console.log(jsondata);
@@ -40,7 +40,7 @@ export default function SearchBar({ placeholder }) {
     setCurrentInput(value.username);
     setShowUserModal((prev) => !prev);
     console.log(value);
-    fetch(`http://localhost:8080/users/profile/${value.id}`, {
+    fetch(`https://gabkis.com/api/users/profile/${value.id}`, {
       method: "GET",
       credentials: "include",
       mode: "cors",
@@ -60,7 +60,7 @@ export default function SearchBar({ placeholder }) {
 
   const createConvo = (id) => {
     console.log(id);
-    fetch("http://localhost:8080/convo/create", {
+    fetch("https://gabkis.com/api/convo/create", {
       method: "POST",
       credentials: "include",
       mode: "cors",

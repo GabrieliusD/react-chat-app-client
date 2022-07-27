@@ -23,7 +23,7 @@ export default function Dashboard() {
       receiverId: currentFriend.participants[0].id,
       text,
     });
-    fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
+    fetch(`https://gabkis.com/api/convo/${currentFriend.id}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -101,7 +101,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     console.log("friend effect trigger");
-    fetch("http://localhost:8080/convo", {
+    fetch("https://gabkis.com/api/convo", {
       credentials: "include",
       mode: "cors",
       headers: {
@@ -122,7 +122,7 @@ export default function Dashboard() {
     console.log("current user set");
     console.log(currentFriend);
     if (!currentFriend) return;
-    fetch(`http://localhost:8080/convo/${currentFriend.id}`, {
+    fetch(`https://gabkis.com/api/convo/${currentFriend.id}`, {
       credentials: "include",
       mode: "cors",
       headers: {

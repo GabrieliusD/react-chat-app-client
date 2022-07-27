@@ -7,7 +7,7 @@ export default function Login() {
   const { isFetching, dispatch } = useContext(AuthContext);
   const handleClick = async () => {
     console.log("login thing");
-    const test = await fetch("http://localhost:8080/login/password", {
+    const test = await fetch("https://gabkis.com/api/login/password", {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

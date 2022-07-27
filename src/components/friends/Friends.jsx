@@ -6,7 +6,7 @@ export default function Friends() {
   const [convos, setConvos] = useState([]);
   useEffect(() => {
     console.log("friend effect trigger");
-    fetch("http://localhost:8080/convo", {
+    fetch("https://gabkis.com/api/convo", {
       credentials: "include",
       mode: "cors",
       headers: {

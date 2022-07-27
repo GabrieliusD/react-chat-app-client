@@ -24,7 +24,7 @@ export default function Conversation({
     setShowUserModal((prev) => !prev);
     console.log(currentFriend);
     fetch(
-      `http://localhost:8080/users/profile/${currentFriend.participants[0].id}`,
+      `https://gabkis.com/api/users/profile/${currentFriend.participants[0].id}`,
       {
         method: "GET",
         credentials: "include",
