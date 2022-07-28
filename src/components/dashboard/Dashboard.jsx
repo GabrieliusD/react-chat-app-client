@@ -49,7 +49,7 @@ export default function Dashboard() {
     );
   };
   useEffect(() => {
-    socket.current = io("ws://gabkis.com/api", { withCredentials: true });
+    socket.current = io("wss://gabkis.com/api", { withCredentials: true });
     console.log(socket.current);
     console.log("BINDING SOCKET");
     socket.current.on("getMessage", (data) => {

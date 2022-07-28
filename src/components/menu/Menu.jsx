@@ -145,7 +145,7 @@ export default function Menu() {
         <h2>Profile image</h2>
         <img
           className="settings-profile-img"
-          src={`http://localhost:8080/images/${user.profileImage}`}
+          src={`https://gabkis.com/api/images/${user.profileImage}`}
         ></img>
 
         {showImageModal ? (
