@@ -49,7 +49,7 @@ export default function Dashboard() {
     );
   };
   useEffect(() => {
-    socket.current = io("https://gabkis.com/api", {
+    socket.current = io("https://gabkis.com/", {
       withCredentials: true,
       path: "/api/socket.io/",
     });
