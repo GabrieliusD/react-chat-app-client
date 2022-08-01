@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import Modal from "../modal/Modal";
 import "./conversation.css";
+import axios from "axios";
 export default function Conversation({
   messages,
   currentFriend,
@@ -23,8 +24,20 @@ export default function Conversation({
   const selectUser = () => {
     setShowUserModal((prev) => !prev);
     console.log(currentFriend);
+    // axios
+    //   .get(`/users/profile/${currentFriend.participants[0].id}`, {
+    //     withCredentials: true,
+    //     mode: "cors",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     setSelectedUser(response.data.userProfile);
+    //     console.log(response.data.userProfile);
+    //   });
     fetch(
-      `https://gabkis.com/api/users/profile/${currentFriend.participants[0].id}`,
+      `${process.env.REACT_APP_API_URL}/users/profile/${currentFriend.participants[0].id}`,
       {
         method: "GET",
         credentials: "include",

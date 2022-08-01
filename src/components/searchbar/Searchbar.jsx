@@ -29,7 +29,9 @@ export default function SearchBar({ placeholder }) {
       setData([]);
       return;
     }
-    const users = await fetch(`https://gabkis.com/api/users/${value}`);
+    const users = await fetch(
+      `${process.env.REACT_APP_API_URL}/users/${value}`
+    );
     const jsondata = await users.json();
     setData(jsondata);
     console.log(jsondata);
@@ -40,7 +42,7 @@ export default function SearchBar({ placeholder }) {
     setCurrentInput(value.username);
     setShowUserModal((prev) => !prev);
     console.log(value);
-    fetch(`https://gabkis.com/api/users/profile/${value.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/users/profile/${value.id}`, {
       method: "GET",
       credentials: "include",
       mode: "cors",
@@ -60,7 +62,7 @@ export default function SearchBar({ placeholder }) {
 
   const createConvo = (id) => {
     console.log(id);
-    fetch("https://gabkis.com/api/convo/create", {
+    fetch("${process.env.REACT_APP_API_URL}/convo/create", {
       method: "POST",
       credentials: "include",
       mode: "cors",

@@ -27,7 +27,9 @@ export default function Topbar() {
 
       <div className="rightTopbar">
         <h3 className="profileText">{user.username}</h3>
-        <NavItem icon={`https://gabkis.com/api/images/${user.profileImage}`}>
+        <NavItem
+          icon={`${process.env.REACT_APP_API_URL}/images/${user.profileImage}`}
+        >
           <DropdownMenu>
             <DropdownItem leftIcon="Hi">My Profile</DropdownItem>
             <DropdownItem goToMenu="settings">Settings</DropdownItem>

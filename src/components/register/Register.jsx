@@ -8,7 +8,7 @@ export default function Register() {
   const [repassword, setRePassword] = useState("");
 
   const handleClick = async () => {
-    const test = await fetch("https://gabkis.com/api/signup", {
+    const test = await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

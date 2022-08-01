@@ -7,15 +7,18 @@ export default function Login() {
   const { isFetching, dispatch } = useContext(AuthContext);
   const handleClick = async () => {
     console.log("login thing");
-    const test = await fetch("https://gabkis.com/api/login/password", {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-    });
+    const test = await fetch(
+      `${process.env.REACT_APP_API_URL}/login/password`,
+      {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      }
+    );
     const jsondata = await test.json();
     if (!jsondata.id) return;
     console.log(AuthContext);
@@ -49,6 +52,7 @@ export default function Login() {
           </button>
         </div>
       </div>
+      <p>{process.env.REACT_APP_API_URL}</p>
       <a href="/register">No Account? No problem register here</a>
     </div>
   );

@@ -7,6 +7,7 @@ import "./dashboard.css";
 import { io } from "socket.io-client";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 export default function Dashboard() {
   const [currentFriend, setCurrentFriend] = useState("");
@@ -23,7 +24,7 @@ export default function Dashboard() {
       receiverId: currentFriend.participants[0].id,
       text,
     });
-    fetch(`https://gabkis.com/api/convo/${currentFriend.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/convo/${currentFriend.id}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -49,7 +50,7 @@ export default function Dashboard() {
     );
   };
   useEffect(() => {
-    socket.current = io("https://gabkis.com/api", {
+    socket.current = io(`${process.env.REACT_APP_API_URL}`, {
       withCredentials: true,
       path: "/api/socket.io/",
     });
@@ -104,7 +105,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     console.log("friend effect trigger");
-    fetch("https://gabkis.com/api/convo", {
+    fetch(`${process.env.REACT_APP_API_URL}/convo`, {
       credentials: "include",
       mode: "cors",
       headers: {
@@ -125,7 +126,7 @@ export default function Dashboard() {
     console.log("current user set");
     console.log(currentFriend);
     if (!currentFriend) return;
-    fetch(`https://gabkis.com/api/convo/${currentFriend.id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/convo/${currentFriend.id}`, {
       credentials: "include",
       mode: "cors",
       headers: {
