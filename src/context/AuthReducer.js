@@ -26,6 +26,10 @@ const AuthReducer = (state, action) => {
           profileImage: action.payload,
         },
       };
+    case "LOGOUT":
+      return {
+        user: null,
+      };
     default:
       return state;
   }

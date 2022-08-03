@@ -281,7 +281,7 @@ export function NavItem(props) {
     <li className="nav-item" ref={ref}>
       <img
         src={props.icon}
-        className="icon-button"
+        className="icon-button-profile"
         onClick={() => setOpen(!open)}
       ></img>
       {open && props.children}
@@ -340,8 +340,17 @@ export function DropdownItem(props) {
 
 export function DropdownButton(props) {
   const buttonClicked = () => {
-    console.log("Drop down button clicked");
-    props.setShowModal((prev) => !prev);
+    props.onButtonClicked();
   };
-  return <a href="#" className="menu-item" onClick={buttonClicked}></a>;
+  return (
+    <a href="#" className="menu-item" onClick={buttonClicked}>
+      <span className="icon-button">{props.leftIcon}</span>
+      {props.children}
+      {props.rightIcon ? (
+        <span className="icon-button">{props.rightIcon}</span>
+      ) : (
+        ""
+      )}
+    </a>
+  );
 }

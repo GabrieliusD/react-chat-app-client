@@ -1,6 +1,12 @@
 .search{
     margin: 10px;
 }
+.searchInput input{
+    border-radius: 20px;
+    border-style: none;
+    height: 15px;
+    padding: 5px;
+}
 .dataResult
 {
     position: absolute;

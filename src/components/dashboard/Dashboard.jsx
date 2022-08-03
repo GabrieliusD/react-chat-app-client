@@ -7,7 +7,6 @@ import "./dashboard.css";
 import { io } from "socket.io-client";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
 
 export default function Dashboard() {
   const [currentFriend, setCurrentFriend] = useState("");

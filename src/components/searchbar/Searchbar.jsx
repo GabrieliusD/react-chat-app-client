@@ -3,6 +3,8 @@ import "./searchbar.css";
 import User from "../user/User";
 import Modal from "../modal/Modal";
 import { useRef } from "react";
+import { ReactComponent as ArrowIcon } from "../../icons/angle-double-right.svg";
+
 export default function SearchBar({ placeholder }) {
   const [focused, setFocused] = useState(false);
   const [data, setData] = useState([]);
@@ -62,7 +64,7 @@ export default function SearchBar({ placeholder }) {
 
   const createConvo = (id) => {
     console.log(id);
-    fetch("${process.env.REACT_APP_API_URL}/convo/create", {
+    fetch(`${process.env.REACT_APP_API_URL}/convo/create`, {
       method: "POST",
       credentials: "include",
       mode: "cors",
@@ -83,6 +85,7 @@ export default function SearchBar({ placeholder }) {
         <input
           type="text"
           value={currentInput}
+          placeholder="Search"
           onChange={(e) => inputChange(e.target.value)}
         />
       </div>
@@ -91,6 +94,7 @@ export default function SearchBar({ placeholder }) {
           {data.map((value, key) => {
             return (
               <User
+                icon={<ArrowIcon />}
                 userFound={value}
                 clickHandle={() => {
                   selectUser(value);

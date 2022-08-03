@@ -53,7 +53,7 @@ export default function Login() {
         </div>
       </div>
       <p>{process.env.REACT_APP_API_URL}</p>
-      <a href="/register">No Account? No problem register here</a>
+      <a href="/chatapp/register">No Account? No problem register here</a>
     </div>
   );
 }

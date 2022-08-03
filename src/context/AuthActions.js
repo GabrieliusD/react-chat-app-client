@@ -1,3 +1,5 @@
+import { type } from "@testing-library/user-event/dist/type";
+
 export const LoginStart = (userCredentials) => ({
   type: "LOGIN_START",
 });
@@ -19,4 +21,9 @@ export const Follow = (userId) => ({
 export const Unfollow = (userId) => ({
   type: "UNFOLLOW",
   payload: userId,
+});
+
+export const Logout = () => ({
+  type: "LOGOUT",
+  payload: null,
 });

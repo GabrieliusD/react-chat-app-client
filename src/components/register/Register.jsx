@@ -51,7 +51,7 @@ export default function Register() {
           <button onClick={handleClick}>Register</button>
         </div>
       </div>
-      <a href="/login">Have an account? Login Here!!!</a>
+      <a href="/chatapp/login">Have an account? Login Here!!!</a>
     </div>
   );
 }

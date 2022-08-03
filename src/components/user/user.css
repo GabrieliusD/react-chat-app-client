@@ -19,3 +19,13 @@
 .user-name{
     padding-left: 10px;
 }
+
+.user-icon{
+    width: 30px;
+    height:30px;
+    border-radius: 50%;
+    margin: 2px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}   

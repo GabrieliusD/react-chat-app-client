@@ -22,6 +22,14 @@ function App() {
         >
           Login
         </Route>
+        <Route
+          path="/login"
+          element={
+            user ? <Navigate to="/dashboard"></Navigate> : <Login></Login>
+          }
+        >
+          Login
+        </Route>
         <Route path="/register" element={<Register></Register>}>
           Register
         </Route>
