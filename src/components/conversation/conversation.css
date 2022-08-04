@@ -13,7 +13,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #6969dd #e0e0e0;
-    
+    background-color: rgb(235, 233, 233);
     height: 100%;
 }
 
@@ -39,6 +39,8 @@ background-color: rgb(218, 218, 218);
 }
 
 .bottomWrapper{
+    border-top:grey solid 1px;
+    padding: 5px;
     display: flex;
     align-items:center;
     justify-content: space-between;
@@ -46,20 +48,32 @@ background-color: rgb(218, 218, 218);
 }
 
 .inputBox{
-    width: 80%;
+width: 80%;
 height: 10px;
 padding: 10px;
 margin-left: 20px;
 border-radius: 20px;
-background-color: rgb(218, 218, 218);
 border-style: none;
 }
-
+.inputBox::placeholder{
+    opacity: 0.5;
+    font-weight: bold;
+    color: blue;
+}
+.inputBox:focus{
+    outline: none;
+}
 
 .sendButton{
-    border-radius: 30px;
-    padding: 5px;
-    width: 100px;
-    align-content: center;
-    margin-left: 20px;
+    background-color: white;
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.sendButton:hover{
+    cursor: pointer;
 }

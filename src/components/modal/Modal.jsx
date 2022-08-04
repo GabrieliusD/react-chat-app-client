@@ -21,7 +21,7 @@ export default function Modal(props) {
         >
           <div className="modalWrapper" style={{ zIndex: props.zIndex }}>
             <div className="modalContent">
-              <h1 className="title">Modal Title</h1>
+              <h1 className="title">{props.title || "Modal Title"}</h1>
               {props.children}
               <button
                 className="closeModalButton"

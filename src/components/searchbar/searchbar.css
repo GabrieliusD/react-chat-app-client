@@ -25,4 +25,14 @@
 .user-profile-modal{
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.bio{
+    margin: 0;
+}
+
+.user-profile-button{
+    margin: 10px;
+    
 }

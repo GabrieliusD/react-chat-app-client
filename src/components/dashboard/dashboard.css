@@ -1,7 +1,35 @@
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div#root {
+  height: 100%; /* remove this line to see div.app is no more 100% height */
+  margin: 0;
+  padding: 0;
+}
+
+div.app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+div.main{
+    height: 100%;
+    margin: 0;
+  padding: 0;
+}
 .dashboardContainer{
     display: flex;
-    margin: 0px auto;
     justify-content:left;
     flex-grow: 1;
-    height: 600px;
+    height: 90%;
 }

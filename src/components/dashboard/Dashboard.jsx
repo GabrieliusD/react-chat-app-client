@@ -18,6 +18,7 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
 
   const sendMessage = async (text, resetText) => {
+    if (text.length === 0) return;
     socket.current.emit("sendMessage", {
       senderId: user.id,
       receiverId: currentFriend.participants[0].id,
@@ -139,7 +140,7 @@ export default function Dashboard() {
     );
   }, [currentFriend]);
   return (
-    <div>
+    <div className="main">
       <div id="modal"></div>
       <Topbar key="topbar"></Topbar>
       <div className="dashboardContainer">
