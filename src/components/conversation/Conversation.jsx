@@ -3,7 +3,6 @@ import { AuthContext } from "../../context/AuthContext";
 import Message from "../message/Message";
 import Modal from "../modal/Modal";
 import "./conversation.css";
-import axios from "axios";
 import { ReactComponent as SendIcon } from "../../icons/interface.svg";
 export default function Conversation({
   messages,
