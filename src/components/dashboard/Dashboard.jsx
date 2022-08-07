@@ -50,7 +50,7 @@ export default function Dashboard() {
     );
   };
   useEffect(() => {
-    socket.current = io(`${process.env.REACT_APP_API_URL}`, {
+    socket.current = io(`${process.env.REACT_APP_SOCKET}`, {
       withCredentials: true,
       path: "/api/socket.io/",
     });
