@@ -160,7 +160,12 @@ export default function Menu() {
             <button onClick={uploadFile}>Upload</button>
           </Modal>
         ) : null}
-        <button onClick={() => setShowImageModal((prev) => !prev)}>Edit</button>
+        <button
+          className="input-button"
+          onClick={() => setShowImageModal((prev) => !prev)}
+        >
+          Edit
+        </button>
       </div>
       <div className="setting-wrapper">
         <h2>Name:</h2>
@@ -172,18 +177,31 @@ export default function Menu() {
             setShowModal={setShowNameModal}
           >
             <p>Edit your name here</p>
-            <input
-              type="text"
-              onChange={(e) => setFirstName(e.target.value)}
-            ></input>
-            <input
-              type="text"
-              onChange={(e) => setLastName(e.target.value)}
-            ></input>
-            <button onClick={changeUsername}>Submit</button>
+            <div className="input-field">
+              <label>First Name:</label>
+              <input
+                type="text"
+                onChange={(e) => setFirstName(e.target.value)}
+              ></input>
+            </div>
+            <div className="input-field">
+              <label>Last Name:</label>
+              <input
+                type="text"
+                onChange={(e) => setLastName(e.target.value)}
+              ></input>
+            </div>
+            <button className="input-button" onClick={changeUsername}>
+              Submit
+            </button>
           </Modal>
         ) : null}
-        <button onClick={() => setShowNameModal((prev) => !prev)}>Edit</button>
+        <button
+          className="input-button"
+          onClick={() => setShowNameModal((prev) => !prev)}
+        >
+          Edit
+        </button>
       </div>
       <div className="setting-wrapper">
         <h2>Bio:</h2>
@@ -199,10 +217,17 @@ export default function Menu() {
               className="bio-text"
               onChange={(e) => setBio(e.target.value)}
             ></textarea>
-            <button onClick={updateBio}>Submit</button>
+            <button className="input-button" onClick={updateBio}>
+              Submit
+            </button>
           </Modal>
         ) : null}
-        <button onClick={() => setShowBioModal((prev) => !prev)}>Edit</button>
+        <button
+          className="input-button"
+          onClick={() => setShowBioModal((prev) => !prev)}
+        >
+          Edit
+        </button>
       </div>
       <div className="setting-wrapper">
         <h2>Hobbies:</h2>
@@ -217,22 +242,33 @@ export default function Menu() {
             showModal={showHobbiesModal}
             setShowModal={setShowHobbiesModal}
           >
-            you
             {userData && userData.hobbies > 0
               ? userData.hobbies.map((hobby) => {
-                  return <span>{hobby}</span>;
+                  return <span className="hobby">{hobby}</span>;
                 })
               : "no hobbies"}
+            <div className="hobby-container">
+              <span className="hobby">Hobby1</span>
+              <span className="hobby">Hobby2</span>
+              <span className="hobby">Hobby3</span>
+              <span className="hobby">Hobby3</span>
+            </div>
+
             <input
               onChange={(e) => {
                 setHobby(e.target.value);
               }}
               type="text"
             ></input>
-            <button onClick={addHobby}>Submit</button>
+            <button className="input-button" onClick={addHobby}>
+              Submit
+            </button>
           </Modal>
         ) : null}
-        <button onClick={() => setShowHobbiesModal((prev) => !prev)}>
+        <button
+          className="input-button"
+          onClick={() => setShowHobbiesModal((prev) => !prev)}
+        >
           Edit
         </button>
       </div>

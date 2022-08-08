@@ -106,6 +106,46 @@ a {
     width: 100%;
 }
 
+.input-button{
+    border: none;
+    margin: 10px;
+    font-size: large;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 5px;
+    width: 150px;
+}
+.hobby-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.hobby{
+    padding: 0px 20px;
+    width: 33%;
+    flex: 0 0 80px;
+    border-style: solid;
+    border-width: 1px;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-field label{
+    margin: 0 20px
+}
+
+.input-field input{
+    font-family: inherit;
+    margin-bottom: 20px;
+    height: 30px;
+    border: 0;
+    border-bottom: 2px solid gray;
+}
+
 .menu-primary-enter{
     position: absolute;
     transform: translateX(-110%);
