@@ -15,8 +15,8 @@ export default function Dashboard() {
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   const socket = useRef();
-  const { user } = useContext(AuthContext);
-
+  //const { user } = useContext(AuthContext);
+  const user = { username: "test" };
   const sendMessage = async (text, resetText) => {
     if (text.length === 0) return;
     socket.current.emit("sendMessage", {

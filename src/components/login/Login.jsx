@@ -51,9 +51,9 @@ export default function Login() {
             Login
           </button>
         </div>
+        <a href="/chatapp/register">No Account? No problem register here</a>
       </div>
       <p>{process.env.REACT_APP_API_URL}</p>
-      <a href="/chatapp/register">No Account? No problem register here</a>
     </div>
   );
 }

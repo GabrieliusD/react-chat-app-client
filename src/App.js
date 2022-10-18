@@ -12,38 +12,44 @@ const history = createBrowserHistory({ basename: "/chatapp" });
 function App() {
   const { user } = useContext(AuthContext);
   return (
-    <BrowserRouter basename={"/chatapp"} history={history}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            user ? <Navigate to="/dashboard"></Navigate> : <Login></Login>
-          }
-        >
-          Login
-        </Route>
-        <Route
-          path="/login"
-          element={
-            user ? <Navigate to="/dashboard"></Navigate> : <Login></Login>
-          }
-        >
-          Login
-        </Route>
-        <Route path="/register" element={<Register></Register>}>
-          Register
-        </Route>
-        <Route
-          path="/dashboard"
-          element={!user ? <Navigate to="/" /> : <Dashboard />}
-        >
-          Dashboard
-        </Route>
-        <Route path="/upload" element={<User />}>
-          Upload
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <BrowserRouter basename={"/chatapp"} history={history}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              user ? <Navigate to="/dashboard"></Navigate> : <Login></Login>
+            }
+          >
+            Login
+          </Route>
+          <Route
+            path="/login"
+            element={
+              user ? <Navigate to="/dashboard"></Navigate> : <Login></Login>
+            }
+          >
+            Login
+          </Route>
+          <Route path="/register" element={<Register></Register>}>
+            Register
+          </Route>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+            Dashboard
+          </Route>
+          <Route path="/upload" element={<User />}>
+            Upload
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

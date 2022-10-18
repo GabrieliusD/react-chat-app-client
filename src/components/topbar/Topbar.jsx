@@ -16,8 +16,9 @@ import { default as Modal } from "../modal/Modal";
 import "./topbar.css";
 export default function Topbar() {
   const { isFetching, dispatch } = useContext(AuthContext);
+  const user = { username: "test" };
 
-  const { user } = useContext(AuthContext);
+  //const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
