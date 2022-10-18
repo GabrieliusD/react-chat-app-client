@@ -27,6 +27,10 @@ export default function Register() {
         <h3>Create an account</h3>
       </div>
       <div className="registerMid">
+        <div className="name-container">
+          <input type="text" placeholder="First Name"></input>
+          <input type="text" placeholder="Last Name"></input>
+        </div>
         <input
           type="text"
           onChange={(e) => setUsername(e.target.value)}
@@ -50,8 +54,8 @@ export default function Register() {
         <div className="buttonWrapper">
           <button onClick={handleClick}>Register</button>
         </div>
+        <a href="/chatapp/login">Have an account? Login Here!!!</a>
       </div>
-      <a href="/chatapp/login">Have an account? Login Here!!!</a>
     </div>
   );
 }
