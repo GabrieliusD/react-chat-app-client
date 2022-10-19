@@ -1,0 +1,23 @@
+span{
+    display: none;
+    color:red;
+    font-size: 12px;
+}
+
+input:invalid[focused="true"] ~.formText span{
+    display: flex;
+}
+.formInput{
+    display: flex;
+    flex-direction: column;
+}
+.formInput input{
+    width: 100%;
+    order: 1;
+}
+
+.formText{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
