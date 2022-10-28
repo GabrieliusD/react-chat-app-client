@@ -7,6 +7,7 @@ import { useContext } from "react";
 import Menu from "./components/menu/Menu";
 import User from "./components/user/User";
 import { createBrowserHistory } from "history";
+import Counter from "./features/counter/Counter";
 const history = createBrowserHistory({ basename: "/chatapp" });
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/upload" element={<User />}>
             Upload
           </Route>
+          <Route path="/test" element={<Counter></Counter>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

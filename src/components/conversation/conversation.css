@@ -58,7 +58,7 @@ border-style: none;
 .inputBox::placeholder{
     opacity: 0.5;
     font-weight: bold;
-    color: blue;
+    color: black;
 }
 .inputBox:focus{
     outline: none;

@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../formInput/FormInput";
 import "./register.css";
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repassword, setRePassword] = useState("");
-
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -22,9 +19,9 @@ export default function Register() {
       id: 1,
       name: "firstname",
       type: "text",
-      placeholder: "First Name",
-      label: "Username",
-      errorMessage: "Test Error",
+      placeholder: "",
+      label: "First Name",
+      errorMessage: "Required",
       required: true,
       pattern: "^[A-Za-z]{3,16}$",
     },
@@ -32,9 +29,9 @@ export default function Register() {
       id: 2,
       name: "lastname",
       type: "text",
-      placeholder: "Last Name",
-      label: "Username",
-      errorMessage: "Test Error",
+      placeholder: "",
+      label: "Last Name",
+      errorMessage: "Required",
       required: true,
       pattern: "^[A-Za-z0-9]{3,16}$",
     },
@@ -42,9 +39,9 @@ export default function Register() {
       id: 3,
       name: "username",
       type: "text",
-      placeholder: "Username",
+      placeholder: "",
       label: "Username",
-      errorMessage: "Test Error",
+      errorMessage: "Required",
       required: true,
       pattern: "^[A-Za-z0-9]{3,16}$",
     },
@@ -52,27 +49,27 @@ export default function Register() {
       id: 4,
       name: "email",
       type: "email",
-      placeholder: "Email",
+      placeholder: "",
       label: "Email",
-      errorMessage: "Test Error",
+      errorMessage: "Required",
       required: true,
     },
     {
       id: 5,
       name: "password",
       type: "password",
-      placeholder: "Password",
+      placeholder: "",
       label: "Password",
-      errorMessage: "Test Error",
+      errorMessage: "Required",
       required: true,
     },
     {
       id: 6,
       name: "confirmPassword",
       type: "password",
-      placeholder: "Confirm Password",
+      placeholder: "",
       label: "Confirm Password",
-      errorMessage: "Test Error",
+      errorMessage: "Required",
       required: true,
       pattern: values.password,
     },
@@ -92,8 +89,11 @@ export default function Register() {
       },
       mode: "cors",
       method: "POST",
-      body: JSON.stringify({ username, email, password, repassword }),
+      body: JSON.stringify(values),
     });
+    if (test.status === 200) {
+      navigate("/login");
+    }
     const jsondata = await test.json();
     if (!jsondata.id) return;
     console.log(jsondata);

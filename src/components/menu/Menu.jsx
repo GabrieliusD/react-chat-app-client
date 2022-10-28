@@ -6,6 +6,9 @@ import { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { default as Modal } from "../modal/Modal";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Menu() {
   const { dispatch } = useContext(AuthContext);
   const [file, setFile] = useState(null);
@@ -98,6 +101,7 @@ export default function Menu() {
 
       data.json().then((jsondata) => {
         console.log(jsondata);
+        toast("Wow so easy!");
         getUserData();
         //dispatch({ type: "UPLOAD_IMAGE", payload: jsondata.image });
       });
@@ -105,6 +109,9 @@ export default function Menu() {
   };
 
   const updateBio = async () => {
+    console.log("attempt to call toast");
+    const notify = () => toast("Wow so easy!");
+    notify();
     if (bio.length === 0) return;
     const data = { bio };
     fetch(`${process.env.REACT_APP_API_URL}/users/profile/bio`, {
@@ -292,6 +299,7 @@ export default function Menu() {
         ) : null}
         <button onClick={() => setShowWorkModal((prev) => !prev)}>Edit</button>
       </div> */}
+      <ToastContainer />
     </div>
   );
 }
@@ -307,6 +315,12 @@ export function Navbar(props) {
 export function NavItem(props) {
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
+  const closeNav = () => {
+    setOpen(false);
+  };
+  const toggleOpen = () => {
+    setOpen(!open);
+  };
   useEffect(() => {
     const closeDropdown = (e) => {
       console.log(e);
@@ -318,6 +332,11 @@ export function NavItem(props) {
 
     return () => document.body.removeEventListener("click", closeDropdown);
   });
+  const createChild = React.Children.map(props.children, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { closeNav });
+    }
+  });
   return (
     <li className="nav-item" ref={ref}>
       <img
@@ -325,14 +344,21 @@ export function NavItem(props) {
         className="icon-button-profile"
         onClick={() => setOpen(!open)}
       ></img>
-      {open && props.children}
+      {open && createChild}
     </li>
   );
 }
 
 export function DropdownMenu(props) {
   const [activeMenu, setActiveMenu] = useState("main");
-
+  const closeNav = () => {
+    props.closeNav();
+  };
+  const createChild = React.Children.map(props.children, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { closeNav });
+    }
+  });
   return (
     <div className="dropdown">
       <CSSTransition
@@ -341,7 +367,7 @@ export function DropdownMenu(props) {
         timeout={500}
         classNames="menu-primary"
       >
-        <div className="menu">{props.children}</div>
+        <div className="menu">{createChild}</div>
       </CSSTransition>
 
       <CSSTransition
@@ -379,9 +405,11 @@ export function DropdownItem(props) {
   );
 }
 
-export function DropdownButton(props) {
+export function DropdownButton(props, closeNav) {
   const buttonClicked = () => {
     props.onButtonClicked();
+    console.log("button clicked");
+    props.closeNav();
   };
   return (
     <a href="#" className="menu-item" onClick={buttonClicked}>

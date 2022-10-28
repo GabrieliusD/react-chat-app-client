@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import "./modal.css";
+import { ReactComponent as CrossIcon } from "../../icons/cross.svg";
+
 export default function Modal(props) {
   const modalRef = useRef();
 
@@ -27,7 +29,7 @@ export default function Modal(props) {
                 className="closeModalButton"
                 onClick={() => props.setShowModal((prev) => !prev)}
               >
-                X
+                <CrossIcon></CrossIcon>
               </button>
             </div>
           </div>

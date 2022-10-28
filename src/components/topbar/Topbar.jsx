@@ -70,7 +70,11 @@ export default function Topbar() {
           </DropdownMenu>
         </NavItem>
         {showModal ? (
-          <Modal showModal={showModal} setShowModal={setShowModal}>
+          <Modal
+            title={"My Profile"}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          >
             <Menu></Menu>
           </Modal>
         ) : null}
